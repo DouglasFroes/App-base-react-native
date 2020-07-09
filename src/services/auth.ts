@@ -4,7 +4,9 @@ interface Response {
     name: string;
   };
 }
-export function signIn(): Promise<Response> {
+export function signIn(email: String, password: String): Promise<Response> {
+  console.log(email);
+  console.log(password);
   const ola = {
     token: 'srtryuturuiuutryngjh',
     user: {

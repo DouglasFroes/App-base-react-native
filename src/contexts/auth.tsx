@@ -8,7 +8,7 @@ interface AuthContextData {
   signed: boolean;
   user: object | null;
   loading: boolean;
-  signIn(): Promise<void>;
+  signIn(email: String, password: String): Promise<void>;
   signOut(): void;
 }
 
@@ -33,14 +33,11 @@ export const AuthProvider: React.FC = ({children}) => {
     loadStorageData();
   }, []);
 
-  async function signIn() {
-    const response = await auth.signIn();
-
+  async function signIn(email: String, password: String) {
+    const response = await auth.signIn(email, password);
     const {token, user} = response;
-
     setUser(user);
     api.defaults.headers['Authorization'] = `Bearer ${token}`;
-
     await asyncStorage.setItem('@RNauth:user', JSON.stringify(user));
     await asyncStorage.setItem('@RNauth:token', token);
   }
